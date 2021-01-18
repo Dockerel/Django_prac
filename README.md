@@ -4,6 +4,8 @@
 
 
 
+# 1
+
 ## **파이썬 가상 환경 생성하기**
 
 
@@ -109,6 +111,8 @@ venv_web
 
 
 
+# 2-1
+
 ## **pybo 앱 생성하기**
 
 1. (mysite):mysite$ django-admin startapp pybo
@@ -123,9 +127,11 @@ venv_web
 
 - 장고가 사용자의 페이지 요청을 이해할 수 있도록 config/urls.py 파일 수정 : 이를 'URL 매핑을 추가한다; 라고 
 
-- URL 분리하기
+- URL 분리하기 : path('pybo/', include('pybo.urls)) - pybo/로 시작되는 페이지 요청은 모두 pybo/urls.py 파일에 있는 URL 매핑을 참고하여 처리하라는 의미
 
-```from django.contrib import admin
+</code>
+</pre>
+from django.contrib import admin
 
 from django.urls import path, include
 
@@ -138,4 +144,42 @@ urlpatterns = [
    
    path('pybo/', include('pybo.urls)),
    
-]```
+]
+</code>
+</pre>
+
+
+## **pybo/urls.py 수정하기**
+
+<pre>
+<code>
+from django.urls import path
+
+
+from . import views
+
+
+urlpatterns = [
+
+   path('', views.index),
+   
+]
+</code>
+</pre>
+
+
+## **views함수 추가 : views.py**
+
+</code>
+</pre>
+from django.http import HttpResponse
+
+
+def index(request):
+
+   return HttpResponse("안녕하세요 pybo에 오신것을 환영합니다)
+   
+</code>
+</pre>
+   
++ 인식 순서 : config/urls.py -> pybo/urls.py -> views.py

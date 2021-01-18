@@ -98,6 +98,6 @@ venv_web
 ## **언어, 시간 설정**
 
    - settings.py 에서
-      ```LANGUAGE_CODE = 'ko-kr'
-      TIME_ZONE = 'Asia/Seoul'```
-    로 변경
+      ```LANGUAGE_CODE = 'ko-kr'```
+      ```TIME_ZONE = 'Asia/Seoul'```
+     로 변경

@@ -32,6 +32,7 @@ config
          ㄴwsgi.py
          
 |
+
 db.sqlite3
 
 |
@@ -45,3 +46,10 @@ venv_web
    ㄴbin
    
    ㄴ ...
+   
+
++ 가상환경 생성과정
+
+1. 초기 폴더 DjangoProjects에서 가상환경 생성
+
+```DjangoProjects$ python3 -m venv venv_web```

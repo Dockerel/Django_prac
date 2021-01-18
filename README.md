@@ -104,3 +104,21 @@ venv_web
       ```TIME_ZONE = 'Asia/Seoul'```
       
      로 변경
+- - -
+## Day 2
+
+
+
+## **pybo 앱 생성하기**
+
+1. (mysite):mysite$ django-admin startapp pybo
+
+2. pybo라는 이름의 디렉터리가 생성되었음을 확인
+
+3. http://localhost:8000/pybo/
+
+
+
+## **config/urls.py 수정하기**
+
+- 장고가 사용자의 페이지 요청을 이해할 수 

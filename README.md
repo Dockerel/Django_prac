@@ -88,16 +88,8 @@ venv_web
    
 ## **서버 구동**
 
-1. ```:mysite$ python3 manage.py runserver'''
+1. ```:mysite$ python3 manage.py runserver```
 
-```Watching for file changes with StatReloader
-
-Performing system checks...
-
-...``` 
-
-
-+ 위와 같은 메시지가 뜨면 성공
 
 + 서버 구동 확인 : 브라우저에서 "http://127.0.0.1:8000" 또는 "http://localhost:8000/ 으로 이동
 
@@ -107,5 +99,5 @@ Performing system checks...
 
    - settings.py 에서
       ```LANGUAGE_CODE = 'ko-kr'
-      TIME_ZONE = 'Asia/Seoul'
+      TIME_ZONE = 'Asia/Seoul'```
       로 변경

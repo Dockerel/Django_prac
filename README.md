@@ -1,1 +1,1 @@
-# Django_prac
+# Django_tutorial

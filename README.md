@@ -48,8 +48,16 @@ venv_web
    ㄴ ...
    
 
+
 + 가상환경 생성과정
 
 1. 초기 폴더 DjangoProjects에서 가상환경 생성
 
-```DjangoProjects$ python3 -m venv venv_web```
+```:DjangoProjects$ python3 -m venv venv_web```
+
+
+2. 가상환경 활성화
+
+```:venv_web/bin$ source ./activate```
+
+* 비활성화 하려면 ```deactivate``` 명령 실행

@@ -129,8 +129,8 @@ venv_web
 
 - URL 분리하기 : path('pybo/', include('pybo.urls)) - pybo/로 시작되는 페이지 요청은 모두 pybo/urls.py 파일에 있는 URL 매핑을 참고하여 처리하라는 의미
 
-</code>
-</pre>
+<code>
+<pre>
 from django.contrib import admin
 
 from django.urls import path, include
@@ -170,8 +170,8 @@ urlpatterns = [
 
 ## **views함수 추가 : views.py**
 
-</code>
-</pre>
+<code>
+<pre>
 from django.http import HttpResponse
 
 

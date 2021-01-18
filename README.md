@@ -122,3 +122,20 @@ venv_web
 ## **config/urls.py 수정하기**
 
 - 장고가 사용자의 페이지 요청을 이해할 수 있도록 config/urls.py 파일 수정 : 이를 'URL 매핑을 추가한다; 라고 
+
+- URL 분리하기
+
+```from django.contrib import admin
+
+from django.urls import path, include
+
+from pybo import views
+
+
+urlpatterns = [
+   
+   path('admin/', admin.site.urls),
+   
+   path('pybo/', include('pybo.urls)),
+   
+]

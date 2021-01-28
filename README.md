@@ -182,3 +182,8 @@ def index(request):
 </pre>
    
 + 인식 순서 : config/urls.py -> pybo/urls.py -> views.py
+
+
+## **데이터를 관리하는 모델**
+
+- migrate

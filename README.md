@@ -186,6 +186,7 @@ def index(request):
 
 ## **데이터를 관리하는 모델**
 
+<<<<<<< HEAD
 - ```python3 manage.py migrate```
 
    : 앱이 필요로 하는 테이블 생성

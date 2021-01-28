@@ -182,3 +182,226 @@ def index(request):
 </pre>
    
 + 인식 순서 : config/urls.py -> pybo/urls.py -> views.py
+
+
+## **데이터를 관리하는 모델**
+
+- ```python3 manage.py migrate```
+
+   : 앱이 필요로 하는 테이블 생성
+
+
+## **모델 만들기**
+
+- 질문과 답변에 대한 모델
+
+<pre>
+<code>
+from django.db import models
+
+# Create your models here.
+
+class Question(models.Model):
+    subject = models.CharField(max_length=200)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+</code>
+</pre>
+
+
+- pybo 앱 등록하기
+
+   - config/settings.py
+   - INSTALLED_APPS 항목에 pybo 앱 추가
+
+   <pre>
+   <code>
+   (... 생략 ...)
+   INSTALLED_APPS = [
+      'pybo.apps.PyboConfig',
+      'django.contrib.admin',
+      'django.contrib.auth',
+      (... 생략 ...)
+   ]
+   (... 생략 ...)
+   </code>
+   </pre>
+
+- migrate로 테이블 생성하기
+
+   - 모델이 생성되거나 변경된 경우 makemigrations 명령을 실행
+   <pre>
+   <code>
+   :mysite$ python3 manage.py makemigrations
+   :mysite$ python3 manage.py migrate
+   </code>
+   </pre>
+
+   - makemigration 명령 수행후 pybo/migrations/0001_initial.py 파일이 생성되는지 확인!
+
+   - 정확히 모델의 속성이 추가되거나 변경된 경우에 실행해야 하는 명령임. 메서드(```__str__```) 등이 추가된 경우에는 하지 않아도 됨
+
+
+## **데이터 입력, 저장, 조회하기**
+---
+### 데이터의 입력, 저장
+
+1. 장고 셸 실행
+
+   ```:mysite$ python3 manage.py shell```
+
+2. Question, Answer 모델 임포트
+
+   ```from pybo.models import Question, Answer```
+
+3. ```>>> from django.utils import timezone```
+
+   ```>>> q = Question(subject='q title ex', content='q content ex', create_date=timezone.now())```
+
+   ```>>> q.save()```
+
+   - id가 각 데이터마다 생성시 자동으로 할당됨
+
+   - ```q.id``` 로 데이터의 id값 확인
+
+### **데이터의 조회 - 1**
+
+- Question.objects.all()
+
+```<QuerySet [<Question: Question object (1)>, <Question: Question object (2)>]>```
+
+- ```__str__``` 메서드의 추가로 데이터의 속성값을 보여줄 수 있음
+
+<pre>
+<code>
+# :mysite/pybo/models.py
+
+def __str__(self):
+   return self.subject
+
+# 위 코드 추가
+</code>
+</pre>
+
+- Question.objects.all()
+
+```<QuerySet [<Question: 'Question example 1'>, <Question: Question example 2>]>```
+
+---
+### **데이터의 조회 - 2**
+
+1. filter
+
+   ```Question.objects.filter(id=1)```
+
+   - 제목의 일부를 이용하여 데이터 조회하기
+
+      ```Question.objects.filter(subject__contains='search word')```
+
+2. get : 반드시 1건의 데이터를 반환해야 한다는 특징이 있음
+
+   ```Question.objects.filter(id=1)```
+
+   ---
+
+   - filter, get의 차이
+
+      조건에 맞지 않는 데이터를 함수로 조회하면 get 함수의 경우 오류가 발생하지만, filter 함수의 경우 그저 빈 QuerySet을 반환한다.
+
+---
+
+### **데이터 수정하기**
+
+1. 데이터의 조회
+   
+   ```q = Question.objects.get(id=2)```
+
+2. subject 속성 수정
+   
+   ```q.subject = 'Django Model Question'```
+
+3. 수정된 모델 저장
+
+   ```q.save```
+
+### **데이터 삭제**
+
+1. 데이터의 조회
+   
+   ```q = Question.objects.get(id=2)```
+
+2. 삭제
+
+   ```q.delete()```
+
+---
+
+## **연결된 데이터 알아보기**
+
+1. Answer 모델 데이터 만들기
+
+   <pre>
+   <code>
+   a = Answer(question=q, content='response example', create_date=timezone.now())
+
+   a.save()
+   </code>
+   </pre>
+
+2. 연결된 데이터로 조회하기: 답변에 있는 질문 조회하기
+
+   ```a.question```
+
+3. 연결된 데이터로 조회하기: 질문을 통해 답변 찾기
+
+   ```q.answer_set.all()```
+
+   - 질문 1개에는 1개 이상의 답변이 달릴 수 있으므로 질문에 달린 답변은 q.answer_set으로 조회해야 한다.
+
+      - 질문 입장 : q.answer_set
+
+      - 답변 입장 : a.question
+---
+# 2-3
+
+## **개발 편의를 제공하는 장고 Admin**
+
+```:mysite$ python3 manage.py createsuperuser```
+
+- localhost:8000/admin 으로 접속
+
+- 장고 Admin에서 모델 관리하기
+<pre>
+<code>
+# :mysite$pybo/admin.py에 추가
+
+from django.contrib import admin
+
+from .models import Question
+
+
+admin.site.register(Question)
+</code>
+</pre>
+
+- 장고 Admin에 데이터 검색 기능 추가하기
+<pre>
+<code>
+# :mysite$pybo/admin.py에 추가
+
+from django.contrib import admin
+
+from .models import Question
+
+class QuestionAdmin(admin.ModelAdmin):
+   search_fields = ['subject']
+
+admin.site.register(Question, QuestionAdmin)
+</code>
+</pre>
+---

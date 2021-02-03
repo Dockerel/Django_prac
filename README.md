@@ -132,3 +132,50 @@ venv_web
       조건에 맞지 않는 데이터를 함수로 조회하면 get 함수의 경우 오류가 발생하지만, filter 함수의 경우 그저 빈 QuerySet을 반환한다.
 
 ---
+
+## Day 3 ~ 5
+
+### **Chapter 2**
+
+#### **장고 관련 참고 문서 링크**
+
+- 장고 속성 공식 문서 주소 : docs.djangoprojects.com/en/3.0/ref/models/fields/#field-types
+
+- 장고 공식 문서(데이터 조회 관련) : docs.djangoprojects.com/en/3.0/topics/db/queries
+
+- 장고 admin 기능 관련 : docs.djangoprojects.com/en/3.0/ref/contrib/admin
+
+- 템플릿 장고 공식 문서 주소 : docs.djangoproject.com/en/3.0/topics/templates
+
+- 부트스트랩 다운로드 링크 : getbootstrap.com/docs/4.5/getting-started/download
+
+- 부트스트랩 공식 문서 : getbootstrap.com/docs/4.5/getting-started/introduction
+
+### **각종 오류 해결법**
+1. 모델 사용시 object 오류 표시 해결법
+
+   model.py의 해당 모델에
+
+   ```objects = models.Manager()```
+
+   코드 추가
+
+   ex)
+   <pre>
+   <code>
+   class Question(models.Model):
+      objects = models.Manager()
+      (... 생략 ...)
+   </code>
+   </pre>
+
+2. static 오류
+   <pre>
+   <code>
+   import os
+   (... 생략 ...)
+   STATICFILES_DIRS = [
+      os.path.join(BASE_DIR, 'static')
+   ]
+   </code>
+   </pre>
